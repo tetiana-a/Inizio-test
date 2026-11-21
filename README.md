@@ -3,6 +3,7 @@
 Webová stránka s jedním vstupním polem: zadáte klíčové slovo a aplikace vrátí **organické výsledky z 1. strany Google** (bez reklam). Výsledky lze stáhnout jako **JSON** nebo **CSV**.
 
 - **Živá ukázka:** https://inizio-serp-kotolup.vercel.app
+- **Zdrojový kód:** https://github.com/tetiana-a/Inizio-test (každý push do `main` se automaticky nasadí na Vercel)
 - **Stack:** Node.js 22, TypeScript, Express 5, Vitest, Playwright + axe-core, Docker
 
 ## Jak to funguje
