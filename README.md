@@ -32,7 +32,7 @@ prohlížeč ──► GET /api/search?q=kávovar ──► SERP API (SerpApi / 
 
 Od srpna 2026 Google u výsledků nahrazuje cílovou adresu přesměrováním `google.com/goto?url=<token>` a SERP API (včetně SerpApi) je u části výsledků vrací tak, jak jsou. Token nejde dekódovat, cíl Google vrací v hlavičce `Location`. Aplikace proto pro tyto odkazy pošle jeden požadavek bez následování přesměrování (`redirect: "manual"`, timeout 3 s) a URL nahradí cílem (`src/search/redirects.ts`).
 
-Od konce října 2026 ale Google zjišťování cílů ze serverů v datacentrech zpomaluje a omezuje, takže na Vercelu se to většinou nepovede. Pak:
+Od konce října 2026 ale Google zjišťování cílů ze serverů v datacentrech zpomaluje a omezuje, takže se to na Vercelu někdy nepovede. Pak:
 
 - v `url` zůstane původní přesměrování – je funkční, po kliknutí vede na správnou stránku,
 - `domain` se vezme ze zobrazené URL (`https://www.firmy.cz › …` → `firmy.cz`), u výsledků bez adresy (např. video na YouTube, kde Google ukáže „1,1 tis.+ sledujících“) ze zdroje (`source`: „YouTube · …“ → `youtube.com`),
