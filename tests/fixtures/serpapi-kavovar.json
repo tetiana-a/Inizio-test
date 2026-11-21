@@ -1,0 +1,121 @@
+{
+  "search_metadata": {
+    "id": "test-fixture",
+    "status": "Success",
+    "total_time_taken": 1.21
+  },
+  "search_parameters": {
+    "engine": "google",
+    "q": "kávovar",
+    "google_domain": "google.cz",
+    "hl": "cs",
+    "gl": "cz",
+    "device": "desktop"
+  },
+  "search_information": {
+    "organic_results_state": "Results for exact spelling",
+    "total_results": 1830000
+  },
+  "ads": [
+    {
+      "position": 1,
+      "block_position": "top",
+      "title": "Kávovary se slevou až 40 % | Reklamní e-shop",
+      "link": "https://www.reklama-kavovary.cz/akce",
+      "displayed_link": "www.reklama-kavovary.cz",
+      "description": "Sponzorovaný výsledek – nesmí se objevit v exportu."
+    },
+    {
+      "position": 2,
+      "block_position": "bottom",
+      "title": "Pákové kávovary skladem",
+      "link": "https://shop.sponzor.cz/kavovary",
+      "displayed_link": "shop.sponzor.cz"
+    }
+  ],
+  "local_results": {
+    "places": [
+      {
+        "position": 1,
+        "title": "Kavárna U Testu",
+        "address": "Brno",
+        "rating": 4.7
+      }
+    ]
+  },
+  "related_questions": [
+    {
+      "question": "Jaký kávovar koupit?",
+      "snippet": "Otázka z bloku „Lidé se také ptají“."
+    }
+  ],
+  "organic_results": [
+    {
+      "position": 1,
+      "title": "Kávovar – Wikipedie",
+      "link": "https://cs.wikipedia.org/wiki/K%C3%A1vovar",
+      "redirect_link": "https://www.google.cz/url?sa=t&url=https://cs.wikipedia.org/wiki/K%C3%A1vovar",
+      "displayed_link": "https://cs.wikipedia.org › wiki › Kávovar",
+      "favicon": "https://serpapi.com/favicon-1.png",
+      "snippet": "Kávovar je přístroj určený k přípravě kávy. Existuje mnoho typů, např. pákový, automatický nebo překapávač.",
+      "source": "Wikipedie"
+    },
+    {
+      "position": 2,
+      "title": "Kávovary | Srovnání cen a recenze",
+      "link": "https://www.srovnavac-test.cz/kavovary/",
+      "displayed_link": "https://www.srovnavac-test.cz › kavovary",
+      "snippet": "Porovnejte 1 250 kávovarů od 40 obchodů. \"Nejlepší cena\", hodnocení zákazníků a parametry na jednom místě.",
+      "sitelinks": {
+        "inline": [
+          {
+            "title": "Automatické kávovary",
+            "link": "https://www.srovnavac-test.cz/automaticke-kavovary/"
+          }
+        ]
+      }
+    },
+    {
+      "position": 3,
+      "title": "Jak vybrat kávovar v roce 2026: průvodce",
+      "link": "https://magazin.kava-test.cz/jak-vybrat-kavovar",
+      "displayed_link": "https://magazin.kava-test.cz › jak-vybrat-kavovar",
+      "date": "12. 3. 2026",
+      "snippet": "Pákový, automatický, nebo kapslový? Shrnuli jsme výhody, nevýhody a ceny jednotlivých typů."
+    },
+    {
+      "position": 4,
+      "title": "Kávovary skladem – doprava zdarma",
+      "link": "https://www.eshop-test.cz/kavovary",
+      "displayed_link": "https://www.eshop-test.cz › kavovary",
+      "snippet": "Široký výběr kávovarů. Doprava zdarma nad 1 500 Kč, osobní odběr v Brně i Praze.",
+      "rich_snippet": {
+        "bottom": {
+          "extensions": [
+            "Hodnocení: 4,8",
+            "312 recenzí"
+          ]
+        }
+      }
+    },
+    {
+      "position": 5,
+      "title": "Kávovar – recenze a test 2026",
+      "link": "https://www.testy-spotrebicu.cz/kavovary",
+      "displayed_link": "https://www.testy-spotrebicu.cz › kavovary",
+      "snippet": "Otestovali jsme 24 kávovarů. Podívejte se, který vyhrál."
+    },
+    {
+      "position": 6,
+      "title": "Repasované kávovary Brno-město",
+      "link": "https://www.google.cz/goto?url=CAESiQEBxCJF18x36GdBHHRHJEwFOcc",
+      "displayed_link": "https://www.firmy-test.cz › kraj-jihomoravsky › brno-mesto",
+      "snippet": "Od srpna 2026 Google obaluje část odkazů přesměrováním /goto – doména se musí vzít ze zobrazené URL."
+    }
+  ],
+  "related_searches": [
+    {
+      "query": "kávovar automatický"
+    }
+  ]
+}

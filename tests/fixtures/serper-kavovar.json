@@ -1,0 +1,45 @@
+{
+  "searchParameters": {
+    "q": "kávovar",
+    "gl": "cz",
+    "hl": "cs",
+    "type": "search",
+    "engine": "google"
+  },
+  "knowledgeGraph": {
+    "title": "Kávovar",
+    "type": "Spotřebič",
+    "description": "Blok znalostního panelu – nesmí se objevit v exportu."
+  },
+  "organic": [
+    {
+      "title": "Kávovar – Wikipedie",
+      "link": "https://cs.wikipedia.org/wiki/K%C3%A1vovar",
+      "snippet": "Kávovar je přístroj určený k přípravě kávy.",
+      "position": 1
+    },
+    {
+      "title": "Kávovary | Srovnání cen a recenze",
+      "link": "https://www.srovnavac-test.cz/kavovary/",
+      "snippet": "Porovnejte 1 250 kávovarů od 40 obchodů.",
+      "sitelinks": [
+        { "title": "Automatické kávovary", "link": "https://www.srovnavac-test.cz/automaticke-kavovary/" }
+      ],
+      "position": 2
+    },
+    {
+      "title": "Jak vybrat kávovar v roce 2026: průvodce",
+      "link": "https://magazin.kava-test.cz/jak-vybrat-kavovar",
+      "snippet": "Pákový, automatický, nebo kapslový?",
+      "date": "12. 3. 2026",
+      "position": 3
+    }
+  ],
+  "peopleAlsoAsk": [
+    { "question": "Jaký kávovar koupit?", "snippet": "…", "link": "https://www.paa-test.cz/" }
+  ],
+  "relatedSearches": [
+    { "query": "kávovar automatický" }
+  ],
+  "credits": 1
+}
