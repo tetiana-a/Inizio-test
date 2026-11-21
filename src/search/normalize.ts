@@ -8,6 +8,8 @@ export interface RawOrganicItem {
   link?: string;
   displayedLink?: string;
   snippet?: string;
+  /** Název zdroje od poskytovatele, např. „YouTube · Collabim“ (SerpApi pole `source`). */
+  source?: string;
 }
 
 /**
@@ -32,8 +34,11 @@ export function normalizeOrganic(items: readonly RawOrganicItem[]): OrganicResul
     seen.add(url.href);
 
     const displayedLink = clean(item.displayedLink);
-    // U přesměrování google.com/goto by doména byla „google.com“ – vezmeme ji ze zobrazené URL.
-    const host = isGoogleHost(url.hostname) ? (hostFromDisplayed(displayedLink) ?? url.hostname) : url.hostname;
+    // U přesměrování google.com/goto by doména byla „google.com“, což je špatně. Vezmeme ji
+    // ze zobrazené URL, případně ze známého zdroje (YouTube…); jinak zůstane prázdná (neznámá).
+    const host = isGoogleHost(url.hostname)
+      ? (hostFromDisplayed(displayedLink) ?? hostFromSource(clean(item.source)) ?? "")
+      : url.hostname;
     const domain = host.replace(/^www\./, "");
     results.push({
       position: results.length + 1,
@@ -57,6 +62,24 @@ function hostFromDisplayed(displayed: string): string | null {
   } catch {
     return null;
   }
+}
+
+/** Platformy, u kterých Google místo adresy zobrazí např. „1,1 tis.+ sledujících“. */
+const SOURCE_HOSTS: Record<string, string> = {
+  youtube: "youtube.com",
+  facebook: "facebook.com",
+  instagram: "instagram.com",
+  linkedin: "linkedin.com",
+  tiktok: "tiktok.com",
+  x: "x.com",
+  twitter: "x.com",
+  reddit: "reddit.com",
+};
+
+/** "YouTube · Collabim" → "youtube.com"; neznámý zdroj → null */
+function hostFromSource(source: string): string | null {
+  const name = (source.split(/\s+[·|-]\s+/)[0] ?? "").trim().toLowerCase();
+  return SOURCE_HOSTS[name] ?? null;
 }
 
 function clean(value: unknown): string {

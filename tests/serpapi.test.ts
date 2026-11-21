@@ -56,6 +56,22 @@ describe("SerpApiProvider", () => {
     });
   });
 
+  it("u videa na YouTube bez adresy vezme doménu z pole source", async () => {
+    const body = {
+      organic_results: [
+        {
+          position: 1,
+          title: "Collabim SEO nástroj",
+          link: "https://www.google.cz/goto?url=CAESbAHEIkXX",
+          displayed_link: "1,1 tis.+ sledujících",
+          source: "YouTube · Collabim",
+        },
+      ],
+    };
+    const [result] = await new SerpApiProvider("k", fakeFetch(200, body)).search("collabim", CZ);
+    expect(result?.domain).toBe("youtube.com");
+  });
+
   it("prázdná výsledková stránka vrátí prázdný seznam, ne chybu", async () => {
     const body = { error: "Google hasn't returned any results for this query." };
     await expect(new SerpApiProvider("k", fakeFetch(200, body)).search("xqzv", CZ)).resolves.toEqual([]);

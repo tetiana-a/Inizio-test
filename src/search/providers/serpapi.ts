@@ -13,6 +13,7 @@ interface SerpApiResponse {
     link?: string;
     displayed_link?: string;
     snippet?: string;
+    source?: string;
   }>;
 }
 
@@ -57,6 +58,7 @@ export class SerpApiProvider implements SerpProvider {
         link: r.link,
         displayedLink: r.displayed_link,
         snippet: r.snippet,
+        source: r.source,
       })),
     );
   }

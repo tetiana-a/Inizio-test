@@ -45,14 +45,29 @@ describe("normalizeOrganic", () => {
     expect(result).toMatchObject({ title: "Titulek s mezerami", domain: "example.cz", snippet: "a b" });
   });
 
-  it("u přesměrování Googlu vezme doménu ze zobrazené URL, jinak ponechá hostitele", () => {
-    const [withDisplayed, withoutDisplayed, nonsense] = normalizeOrganic([
+  it("u přesměrování Googlu vezme doménu ze zobrazené URL nebo zdroje – nikdy ne google.com", () => {
+    const [withDisplayed, withoutDisplayed, nonsense, video] = normalizeOrganic([
       { position: 1, title: "A", link: "https://www.google.com/goto?url=CAES1", displayedLink: "https://www.irs.gov › retirement" },
       { position: 2, title: "B", link: "https://www.google.com/goto?url=CAES2" },
       { position: 3, title: "C", link: "https://www.google.com/goto?url=CAES3", displayedLink: "Wikipedie" },
+      {
+        position: 4,
+        title: "D",
+        link: "https://www.google.cz/goto?url=CAES4",
+        displayedLink: "1,1 tis.+ sledujících",
+        source: "YouTube · Collabim",
+      },
     ]);
     expect(withDisplayed?.domain).toBe("irs.gov");
-    expect(withoutDisplayed?.domain).toBe("google.com");
-    expect(nonsense?.domain).toBe("google.com");
+    expect(withoutDisplayed?.domain).toBe("");
+    expect(nonsense?.domain).toBe("");
+    expect(video).toMatchObject({ domain: "youtube.com", displayedUrl: "1,1 tis.+ sledujících" });
+  });
+
+  it("u běžného odkazu bere doménu z URL, ne ze zdroje", () => {
+    const [result] = normalizeOrganic([
+      { position: 1, title: "A", link: "https://cs.wikipedia.org/wiki/K", displayedLink: "Wikipedie", source: "YouTube" },
+    ]);
+    expect(result?.domain).toBe("cs.wikipedia.org");
   });
 });

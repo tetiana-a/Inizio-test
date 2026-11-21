@@ -71,7 +71,9 @@ function renderItem(result, index) {
   favicon.alt = "";
   favicon.loading = "lazy";
   favicon.addEventListener("error", () => favicon.remove());
-  url.append(favicon, result.displayedUrl);
+  // Bez známé domény (neotevřené přesměrování Googlu) ikonu nezobrazujeme.
+  if (result.domain) url.append(favicon);
+  url.append(result.displayedUrl);
 
   const snippet = document.createElement("p");
   snippet.className = "snippet";

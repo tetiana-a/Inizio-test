@@ -17,7 +17,7 @@ prohlížeč ──► GET /api/search?q=kávovar ──► SERP API (SerpApi / 
 1. Stránka (`public/`) pošle klíčové slovo na `GET /api/search`.
 2. Server slovo zkontroluje (prázdné / příliš dlouhé → 400) a zavolá poskytovatele SERP dat s lokalizací `google.cz`, `gl=cz`, `hl=cs`.
 3. Z odpovědi se vezmou **jen organické výsledky**. Reklamy, místní výsledky (mapa), „Lidé se také ptají“ a znalostní panel se ignorují. Položky bez titulku nebo platné http(s) URL a duplicitní URL se vyřadí a pozice se očíslují 1..n.
-4. Odkazy typu `google.com/goto?url=…` se převedou na skutečnou cílovou URL (viz níže).
+4. U odkazů typu `google.com/goto?url=…` se aplikace pokusí zjistit skutečnou cílovou URL (viz níže).
 5. Výsledek se uloží do paměťové cache (10 min), takže zobrazení a následné stažení JSON/CSV stojí jen jeden dotaz na API.
 
 ### Proč přes SERP API, a ne přímým stahováním google.com
@@ -30,7 +30,13 @@ prohlížeč ──► GET /api/search?q=kávovar ──► SERP API (SerpApi / 
 
 ### Odkazy google.com/goto
 
-Od srpna 2026 Google u části výsledků nahrazuje cílovou adresu přesměrováním `google.com/goto?url=<token>` a SERP API je v některých případech vrací tak, jak jsou. Token nejde dekódovat, cíl ale Google vrací v hlavičce `Location`. Aplikace proto pro tyto odkazy pošle jeden požadavek bez následování přesměrování (`redirect: "manual"`, timeout 3 s) a URL nahradí cílem (`src/search/redirects.ts`). Když se cíl zjistit nepodaří, zůstane v `url` původní (funkční) přesměrování a `domain` se vezme ze zobrazené URL, aby nikdy nebyla „google.com“.
+Od srpna 2026 Google u výsledků nahrazuje cílovou adresu přesměrováním `google.com/goto?url=<token>` a SERP API (včetně SerpApi) je u části výsledků vrací tak, jak jsou. Token nejde dekódovat, cíl Google vrací v hlavičce `Location`. Aplikace proto pro tyto odkazy pošle jeden požadavek bez následování přesměrování (`redirect: "manual"`, timeout 3 s) a URL nahradí cílem (`src/search/redirects.ts`).
+
+Od konce října 2026 ale Google zjišťování cílů ze serverů v datacentrech zpomaluje a omezuje, takže na Vercelu se to většinou nepovede. Pak:
+
+- v `url` zůstane původní přesměrování – je funkční, po kliknutí vede na správnou stránku,
+- `domain` se vezme ze zobrazené URL (`https://www.firmy.cz › …` → `firmy.cz`), u výsledků bez adresy (např. video na YouTube, kde Google ukáže „1,1 tis.+ sledujících“) ze zdroje (`source`: „YouTube · …“ → `youtube.com`),
+- když doménu zjistit nejde, zůstane prázdná. Nikdy to není chybné „google.com“.
 
 ## Vzhled
 
@@ -117,7 +123,7 @@ npm run test:all    # obojí
 
 ### Unit testy
 
-59 unit testů (Vitest + Supertest), bez přístupu k síti – odpovědi SERP API jsou ve `tests/fixtures/`:
+61 unit testů (Vitest + Supertest), bez přístupu k síti – odpovědi SERP API jsou ve `tests/fixtures/`:
 
 - **poskytovatelé** (`serpapi.test.ts`, `serper.test.ts`): správně sestavený dotaz, do výstupu se dostanou jen organické výsledky (reklamy, místní výsledky, „Lidé se také ptají“ ne), mapování polí, prázdné výsledky, chyby API,
 - **normalizace** (`normalize.test.ts`): pořadí, vyřazení neplatných URL, duplicit a `javascript:` odkazů, doména u přesměrování Googlu,
@@ -160,4 +166,4 @@ Projekt je připravený pro Vercel (Express bez konfigurace: `src/app.ts` export
 - Výsledky odpovídají tomu, co Google vrátí poskytovateli API pro `google.cz` z jeho lokace; osobní výsledek v prohlížeči se může lišit (personalizace, poloha).
 - Cache a rate limit jsou v paměti – na serverless hostingu platí jen pro jednu instanci. Pro produkci by se hodil Redis.
 - Bezplatný tarif SerpApi má 250 dotazů měsíčně.
-- Google dohledání cílů `/goto` z datacenter občas zdržuje nebo blokuje; pak zůstane přesměrovací odkaz (viz výše).
+- Google od konce října 2026 dohledání cílů `/goto` z datacenter omezuje; v produkci proto u části výsledků zůstává (funkční) přesměrovací odkaz a doména ze zobrazené URL (viz výše).
